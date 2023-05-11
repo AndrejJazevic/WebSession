@@ -4,11 +4,12 @@
     <title>Text</title>
 </head>
 <body>
-  <form>
+<h2>${message}</h2>
+  <form method="post" action="save">
     <p>Enter the text: <input type="text" name="userText"/></p>
     <input type="submit" name="save" value="Save">
   </form>
-  <form>
+  <form method="post" action="logout">
     <input type="submit" name="logout" value="Logout"/>
   </form>
 </body>

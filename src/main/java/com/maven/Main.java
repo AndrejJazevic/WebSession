@@ -22,16 +22,16 @@ public class Main {
         UserDao userDao = ctx.getBean(UserDao.class);
         SessionDao sessionDao = ctx.getBean(SessionDao.class);
 
-        List<User> users = userDao.findAll();
-        for(User user:users){
-            if(username.equals(user.getUsername()) && password.equals(user.getPassword())){
-                System.out.println("You logged in!");
-//                Session session = sessionDao.createLogin(user);
+//        List<User> users = userDao.findAll();
+//        for(User user:users){
+//            if(username.equals(user.getUsername()) && password.equals(user.getPassword())){
+//                System.out.println("You logged in!");
+//                Session session = sessionDao.createSession(user);
 //                Thread.sleep(2000);
 //                sessionDao.updateLogout(session);
-                return;
-            }
-        }
+//                return;
+//            }
+//        }
         System.out.println("The username or password is incorrect.");
     }
 }

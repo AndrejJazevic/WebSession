@@ -3,6 +3,7 @@ package com.maven.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +14,9 @@ public class Session implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    private LocalDate loginTime;
+    private LocalDateTime loginTime;
 
-    private LocalDate logoutTime;
+    private LocalDateTime logoutTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -32,19 +33,19 @@ public class Session implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getLoginTime() {
+    public LocalDateTime getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(LocalDate loginTime) {
+    public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
 
-    public LocalDate getLogoutTime() {
+    public LocalDateTime getLogoutTime() {
         return logoutTime;
     }
 
-    public void setLogoutTime(LocalDate logoutTime) {
+    public void setLogoutTime(LocalDateTime logoutTime) {
         this.logoutTime = logoutTime;
     }
 

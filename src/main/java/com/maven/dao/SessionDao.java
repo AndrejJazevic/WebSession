@@ -4,6 +4,6 @@ import com.maven.entity.Session;
 import com.maven.entity.User;
 
 public interface SessionDao {
-    Session createLogin(User user);
+    Session createSession(User user);
     void updateLogout(Session session);
 }

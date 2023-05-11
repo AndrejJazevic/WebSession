@@ -5,6 +5,6 @@
 </head>
 <body>
 <h2>${message}</h2><br/>
-<jsp:include page="/index.jsp"></jsp:include>
+<jsp:include page="/login.jsp"></jsp:include>
 </body>
 </html>

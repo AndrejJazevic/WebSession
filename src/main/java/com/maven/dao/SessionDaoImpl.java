@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 @Transactional
@@ -16,17 +17,19 @@ public class SessionDaoImpl implements SessionDao{
     private EntityManager em;
 
     @Override
-    public Session createLogin(User user) {
+    public Session createSession(User user) {
         Session session = new Session();
-        session.setLoginTime(LocalDate.now());
+        session.setLoginTime(LocalDateTime.now());
         session.setUser(user);
+        em.persist(session);
         return session;
     }
 
     @Override
     public void updateLogout(Session session) {
-        session.setLogoutTime(LocalDate.now());
-        em.persist(session);
+        session.setLogoutTime(LocalDateTime.now());
+        // figure out if session if mergeable or not
+        em.merge(session);
     }
 
 }

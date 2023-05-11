@@ -2,10 +2,7 @@ package com.maven;
 
 import com.maven.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,6 +24,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 @ComponentScan("com.maven")
+@EnableWebMvc
+//@Import(WebConfig.class)
 public class AppConfig {
     @Autowired
     private Environment env;
@@ -74,6 +73,13 @@ public class AppConfig {
 //        properties.setProperty("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
 //        properties.setProperty("hibernate.use_sql_comments", env.getRequiredProperty("hibernate.use_sql_comments"));
         return properties;
+    }
+    @Bean
+    public InternalResourceViewResolver getViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/");
+        resolver.setSuffix(".jsp");
+        return resolver;
     }
 }
 

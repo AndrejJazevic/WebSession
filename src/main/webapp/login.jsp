@@ -5,7 +5,7 @@
 </head>
 <body>
 <h2>Hello World!</h2>
-<form method="post" action="text.jsp">
+<form method="post" action="login">
     <p>Username</p><input type="text" name="username"/>
     <p>Password</p><input type="text" name="password"/>
     <input type="submit" name="login" value="Login">

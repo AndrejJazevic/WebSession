@@ -24,76 +24,23 @@
 //import java.util.Properties;
 //
 //@Configuration
-//@EnableTransactionManagement
-//@PropertySource("classpath:application.properties")
-//@ComponentScan("com.maven")
+////@EnableTransactionManagement
+////@PropertySource("classpath:application.properties")
+////@ComponentScan("com.maven")
 //@EnableWebMvc
 //public class WebConfig extends WebMvcConfigurerAdapter {
-//    @Autowired
-//    private Environment env;
 //
 //    @Bean
-//    public DataSource dataSource(){
-//        DriverManagerDataSource ds = new DriverManagerDataSource();
-//        ds.setUrl(env.getRequiredProperty("spring.datasource.url"));
-//        ds.setDriverClassName(env.getRequiredProperty("spring.datasource.driverClassName"));
-//        ds.setUsername(env.getRequiredProperty("spring.datasource.username"));
-//        ds.setPassword(env.getRequiredProperty("spring.datasource.password"));
-//        return ds;
-//    }
-//
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(PersistenceUnitManager pum){
-//        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-//        factory.setJpaProperties(properties());
-//        factory.setPersistenceUnitManager(pum);
-//        factory.setPackagesToScan(User.class.getPackageName());
-//        factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-//        return factory;
-//    }
-//
-//    @Bean
-//    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-//        JpaTransactionManager transactionManager = new JpaTransactionManager();
-//        transactionManager.setEntityManagerFactory(emf);
-//        return transactionManager;
-//    }
-//
-//    @Bean
-//    public PersistenceUnitManager persistenceUnitManager(DataSource ds){
-//        DefaultPersistenceUnitManager persistenceUnitManager = new DefaultPersistenceUnitManager();
-//        persistenceUnitManager.setPersistenceXmlLocation("classpath*:/META-INF/persistence.xml");
-//        persistenceUnitManager.setDefaultDataSource(ds);
-//        return persistenceUnitManager;
-//    }
-//
-//    private Properties properties(){
-//        Properties properties = new Properties();
-//        properties.setProperty("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
-//        properties.setProperty("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
-//        properties.setProperty("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
-////        properties.setProperty("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
-////        properties.setProperty("hibernate.use_sql_comments", env.getRequiredProperty("hibernate.use_sql_comments"));
-//        return properties;
-//    }
-//
-//    @Bean
-//    public ViewResolver getViewResolver() {
+//    public InternalResourceViewResolver getViewResolver() {
 //        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 //        resolver.setPrefix("/WEB-INF/");
-//        resolver.setSuffix(".jsp");
-//        return resolver;
-//    }
-//    @Bean
-//    public InternalResourceViewResolver resolver(){
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
 //        resolver.setSuffix(".jsp");
 //        return resolver;
 //    }
 //
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry){
-//        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//        registry.addResourceHandler("/resources/**")
+//                .addResourceLocations("/resources/");
 //    }
 //}
