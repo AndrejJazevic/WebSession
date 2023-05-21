@@ -4,9 +4,9 @@
     <title>Text</title>
 </head>
 <body>
-<h2>${message}</h2>
+<h2>${model.message}</h2>
   <form method="post" action="save">
-    <p>Enter the text: <input type="text" name="userText"/></p>
+    <p>Enter the text: <input type="text" name="userText" value="${model.textValue}"/></p>
     <input type="submit" name="save" value="Save">
   </form>
   <form method="post" action="logout">

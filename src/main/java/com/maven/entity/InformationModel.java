@@ -5,18 +5,20 @@ import java.io.Serializable;
 import java.sql.Clob;
 
 @Entity
-public class InformationModel implements Serializable {
+public class InformationModel implements EntityWithId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Lob
+    @Column(name = "text",nullable = false)
     private String text;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id")
-    private Session session;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Integer getId() {
         return id;
@@ -34,11 +36,11 @@ public class InformationModel implements Serializable {
         this.text = text;
     }
 
-    public Session getSession() {
-        return session;
+    public User getSession() {
+        return user;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
+    public void setUser(User u) {
+        this.user = u;
     }
 }

@@ -4,5 +4,7 @@ import com.maven.entity.InformationModel;
 import com.maven.entity.Session;
 
 public interface InformationModelDao {
-    InformationModel createModel(Session session, String text);
+    InformationModel updateModel(Session session, String text);
+
+    InformationModel getOrCreate(Session session);
 }

@@ -4,20 +4,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.maven.*;
 import com.maven.dao.InformationModelDao;
 import com.maven.dao.SessionDao;
 import com.maven.dao.UserDao;
 import com.maven.entity.InformationModel;
 import com.maven.entity.Session;
 import com.maven.entity.User;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class WebController {
@@ -27,6 +29,17 @@ public class WebController {
     SessionDao sessionDao;
     @Autowired
     InformationModelDao informationModelDao;
+
+    public ModelAndView createTextInputPage(Session session){
+        InformationModel informationModel = informationModelDao.getOrCreate(session);
+        String message = "Welcome " + session.getUser().getUsername() + ".";
+
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("message", message);
+        model.put("textValue", informationModel.getText());
+
+        return new ModelAndView("text", "model", model);
+    }
 
     @RequestMapping(value = "/login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -40,8 +53,7 @@ public class WebController {
                     Session session1 = sessionDao.createSession(user);
                     session.setAttribute("username", user);
                     session.setAttribute("session", session1);
-                    message = "Welcome " + username + ".";
-                    return new ModelAndView("text", "message", message);
+                    return createTextInputPage(session1);
                 }
             }
             message = "Wrong username or password.";
@@ -53,9 +65,13 @@ public class WebController {
         }
         return new ModelAndView("login");
     }
+
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpSession session) {
         Session session1 = (Session) session.getAttribute("session");
+        if(session1 == null){
+            return new ModelAndView("login");
+        }
         session.removeAttribute("session");
         session.removeAttribute("username");
         sessionDao.updateLogout(session1);
@@ -64,9 +80,16 @@ public class WebController {
 
     @RequestMapping(value = "/save")
     public ModelAndView saveInfoModel(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-        String text = request.getParameter("userText");
         Session session1 = (Session) session.getAttribute("session");
-        informationModelDao.createModel(session1, text);
-        return new ModelAndView("text");
+        if(session1 == null){
+            return new ModelAndView("login");
+        }
+
+        String text = Optional.ofNullable(request.getParameter("userText"))
+                .map(StringUtils::trim)
+                .orElse("");
+        informationModelDao.updateModel(session1, text);
+
+        return createTextInputPage(session1);
     }
 }

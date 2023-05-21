@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Session implements Serializable {
+public class Session implements EntityWithId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -21,9 +21,6 @@ public class Session implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<InformationModel> infmodels = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -57,11 +54,4 @@ public class Session implements Serializable {
         this.user = user;
     }
 
-    public Set<InformationModel> getInfmodels() {
-        return infmodels;
-    }
-
-    public void setInfmodels(Set<InformationModel> infmodels) {
-        this.infmodels = infmodels;
-    }
 }
